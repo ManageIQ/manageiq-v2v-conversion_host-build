@@ -27,7 +27,7 @@ RUN yum -y install \
 
 # The container image cannot handle sparse file properly. Keep --size to the
 # required minimum.
-RUN /usr/bin/supermin5 \
+RUN /usr/bin/supermin \
         --build \
         --verbose \
         --copy-kernel \
