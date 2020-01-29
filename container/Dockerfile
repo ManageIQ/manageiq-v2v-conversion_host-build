@@ -1,17 +1,22 @@
 FROM centos:8
 
+# TODO: add openstack client
+# curl -LO https://trunk.rdoproject.org/centos8-master/puppet-passed-ci/delorean.repo
+# dnf -y install --enablerepo=PowerTools python3-openstackclient
+
 RUN cd /etc/yum.repos.d/ && \
-    curl -LO https://fedorapeople.org/groups/virt/virtio-win/virtio-win.repo && \
-    curl -LO https://copr.fedorainfracloud.org/coprs/sbonazzo/AdvancedVirtualization/repo/centos-stream/sbonazzo-AdvancedVirtualization-centos-stream.repo
+    curl -LO https://fedorapeople.org/groups/virt/virtio-win/virtio-win.repo
 
 RUN yum -y install \
         epel-release \
+        https://resources.ovirt.org/pub/yum-repo/ovirt-release44-pre.rpm \
     && \
     yum -y update && \
     yum -y install \
         nbdkit \
         nbdkit-python-plugin \
         nbdkit-vddk-plugin \
+        python3-ovirt-engine-sdk4 \
         qemu-kvm \
         v2v-conversion-host-wrapper \
         virt-v2v \
