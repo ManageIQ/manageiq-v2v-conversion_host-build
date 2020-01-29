@@ -9,12 +9,12 @@ RUN cd /etc/yum.repos.d/ && \
     curl -LO https://copr.fedorainfracloud.org/coprs/manageiq/ManageIQ-Master/repo/epel-8/manageiq-ManageIQ-Master-epel-8.repo && \
     true
 
-RUN yum -y install \
+RUN dnf -y install \
         epel-release \
         https://resources.ovirt.org/pub/yum-repo/ovirt-release44-pre.rpm \
     && \
-    yum -y update && \
-    yum -y install \
+    dnf -y update && \
+    dnf -y install \
         nbdkit \
         nbdkit-python-plugin \
         nbdkit-vddk-plugin \
@@ -24,7 +24,7 @@ RUN yum -y install \
         virt-v2v \
         virtio-win \
     && \
-    yum clean all
+    dnf clean all
 
 # The container image cannot handle sparse file properly. Keep --size to the
 # required minimum.
