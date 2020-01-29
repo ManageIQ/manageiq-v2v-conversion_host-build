@@ -37,6 +37,8 @@ RUN install --mode=0775 --group=0 -d /data && \
     install --mode=0775 --group=0 -d /data/input && \
     install --mode=0775 --group=0 -d /data/vddklib && \
     install --mode=0775 --group=0 -d /data/vm && \
+    install --mode=0775 --group=0 -d /var/lib/uci && \
+    install --mode=0775 --group=0 -d /var/log/uci && \
     ln -s /data/vddklib/vmware-vix-disklib-distrib /opt/vmware-vix-disklib-distrib &&\
     true
 
