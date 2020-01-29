@@ -1,4 +1,4 @@
-FROM centos:8 as common
+FROM centos:8
 
 RUN cd /etc/yum.repos.d/ && \
     curl -LO https://fedorapeople.org/groups/virt/virtio-win/virtio-win.repo && \
@@ -13,17 +13,11 @@ RUN yum -y install \
         nbdkit-python-plugin \
         nbdkit-vddk-plugin \
         qemu-kvm \
+        v2v-conversion-host-wrapper \
         virt-v2v \
         virtio-win \
     && \
     yum clean all
-
-
-FROM common as builder
-
-RUN yum -y install \
-  python36-devel \
-  python3-setuptools
 
 # The container image cannot handle sparse file properly. Keep --size to the
 # required minimum.
@@ -39,25 +33,12 @@ RUN /usr/bin/supermin \
     touch /usr/lib64/guestfs/README.fixed && \
     LIBGUESTFS_BACKEND=direct libguestfs-test-tool
 
-# TODO: use RPM
-RUN cd /source && \
-  python setup.py install --record /tmp/filelist.txt --skip-build && \
-  tar -cPf /tmp/wrapper_output.tar --no-unquote --files-from=/tmp/filelist.txt
-# Ideally use --verbatim-files-from, but tar from centos-7 does not know that.
-
-FROM common
-
-COPY --from=builder /usr/lib64/guestfs/ /usr/lib64/guestfs/
-
 RUN install --mode=0775 --group=0 -d /data && \
     install --mode=0775 --group=0 -d /data/input && \
     install --mode=0775 --group=0 -d /data/vddklib && \
     install --mode=0775 --group=0 -d /data/vm && \
     ln -s /data/vddklib/vmware-vix-disklib-distrib /opt/vmware-vix-disklib-distrib &&\
     true
-
-COPY --from=builder /tmp/wrapper_output.tar /tmp/wrapper_output.tar
-RUN tar xvf /tmp/wrapper_output.tar
 
 COPY entrypoint /usr/local/bin/entrypoint
 
