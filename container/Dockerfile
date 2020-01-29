@@ -5,7 +5,9 @@ FROM centos:8
 # dnf -y install --enablerepo=PowerTools python3-openstackclient
 
 RUN cd /etc/yum.repos.d/ && \
-    curl -LO https://fedorapeople.org/groups/virt/virtio-win/virtio-win.repo
+    curl -LO https://fedorapeople.org/groups/virt/virtio-win/virtio-win.repo && \
+    curl -LO https://copr.fedorainfracloud.org/coprs/manageiq/ManageIQ-Master/repo/epel-8/manageiq-ManageIQ-Master-epel-8.repo && \
+    true
 
 RUN yum -y install \
         epel-release \
