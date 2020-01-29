@@ -1,12 +1,15 @@
 FROM centos:8
 
-# TODO: add openstack client
-# curl -LO https://trunk.rdoproject.org/centos8-master/puppet-passed-ci/delorean.repo
-# dnf -y install --enablerepo=PowerTools python3-openstackclient
-
 RUN cd /etc/yum.repos.d/ && \
     curl -LO https://fedorapeople.org/groups/virt/virtio-win/virtio-win.repo && \
     curl -LO https://copr.fedorainfracloud.org/coprs/manageiq/ManageIQ-Master/repo/epel-8/manageiq-ManageIQ-Master-epel-8.repo && \
+    curl \
+        https://trunk.rdoproject.org/centos8/dlrn-deps.repo \
+        https://trunk.rdoproject.org/centos8-master/component/clients/current/delorean.repo \
+        https://trunk.rdoproject.org/centos8-master/component/common/current/delorean.repo \
+        https://trunk.rdoproject.org/centos8-master/component/security/current/delorean.repo \
+        https://trunk.rdoproject.org/centos8-master/component/tripleo/current/delorean.repo \
+        > rdo.repo && \
     true
 
 RUN dnf -y install \
@@ -24,6 +27,7 @@ RUN dnf -y install \
         virt-v2v \
         virtio-win \
     && \
+    dnf -y install --enablerepo=PowerTools python3-openstackclient && \
     dnf clean all
 
 # The container image cannot handle sparse file properly. Keep --size to the
