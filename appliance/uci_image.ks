@@ -91,7 +91,7 @@ EOF
 echo "" >> /etc/ssh/sshd_config
 
 # Pull the latest UCI Image
-podman pull docker://hub.docker.com/manageiq/v2v-conversion-host:latest
+podman pull docker.io/manageiq/v2v-conversion-host:latest
 
 chvt 1
 
