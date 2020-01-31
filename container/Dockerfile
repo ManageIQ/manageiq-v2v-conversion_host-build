@@ -28,10 +28,14 @@ RUN dnf -y install \
         virtio-win \
     && \
     dnf -y install --enablerepo=PowerTools python3-openstackclient && \
-    dnf clean all
+    dnf -y clean all
 
-# The container image cannot handle sparse file properly. Keep --size to the
-# required minimum.
+# NOTES:
+# - The container image cannot handle sparse file properly. Keep --size to the
+#   required minimum.
+# - Don't try to remove guestfs directory and then rename guestfs.fixed. This
+#   will confuse AUFS and one will end up with directory that contains both
+#   deleted and new files/directories.
 RUN /usr/bin/supermin \
         --build \
         --verbose \
@@ -40,7 +44,9 @@ RUN /usr/bin/supermin \
         --size 300M \
         --host-cpu x86_64 \
         /usr/lib64/guestfs/supermin.d \
-        -o /usr/lib64/guestfs/ && \
+        -o /usr/lib64/guestfs.fixed/ && \
+    rm -frv /usr/lib64/guestfs/* && \
+    mv -v /usr/lib64/guestfs.fixed/* /usr/lib64/guestfs && \
     touch /usr/lib64/guestfs/README.fixed && \
     LIBGUESTFS_BACKEND=direct libguestfs-test-tool
 
@@ -50,11 +56,10 @@ RUN install --mode=0775 --group=0 -d /data && \
     install --mode=0775 --group=0 -d /data/vm && \
     install --mode=0775 --group=0 -d /var/lib/uci && \
     install --mode=0775 --group=0 -d /var/log/uci && \
-    ln -s /data/vddklib/vmware-vix-disklib-distrib /opt/vmware-vix-disklib-distrib &&\
+    ln -s /data/vddklib/vmware-vix-disklib-distrib /opt/vmware-vix-disklib-distrib && \
     true
 
 COPY entrypoint /usr/local/bin/entrypoint
 
-VOLUME ["/opt/vmware-vix-disklib-distrib"]
 ENTRYPOINT ["/usr/local/bin/entrypoint"]
 USER ${USER_UID}
