@@ -3,6 +3,7 @@ FROM centos:8
 RUN cd /etc/yum.repos.d/ && \
     curl -LO https://fedorapeople.org/groups/virt/virtio-win/virtio-win.repo && \
     curl -LO https://copr.fedorainfracloud.org/coprs/manageiq/ManageIQ-Master/repo/epel-8/manageiq-ManageIQ-Master-epel-8.repo && \
+    curl -LO https://copr.fedorainfracloud.org/coprs/rjones/libnbd/repo/epel-8/rjones-libnbd-epel-8.repo && \
     curl \
         https://trunk.rdoproject.org/centos8/dlrn-deps.repo \
         https://trunk.rdoproject.org/centos8-master/component/clients/current/delorean.repo \
