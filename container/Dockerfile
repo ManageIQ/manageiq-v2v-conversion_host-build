@@ -17,6 +17,7 @@ RUN dnf -y install \
         epel-release \
         https://resources.ovirt.org/pub/yum-repo/ovirt-release44-pre.rpm \
     && \
+    dnf -y module disable virt && \
     dnf -y update && \
     dnf -y install \
         nbdkit \
