@@ -58,8 +58,7 @@ set -x
 
 # For some reason, DEBUG is set but empty in the kickstart.
 unset DEBUG
-systemctl enable memcached
-systemctl enable network
+
 systemctl enable libvirtd
 
 # Link ctrl-alt-del.target to /dev/null to prevent reboot from console
