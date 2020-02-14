@@ -93,6 +93,16 @@ echo "" >> /etc/ssh/sshd_config
 # Pull the latest UCI Image
 podman pull docker.io/manageiq/v2v-conversion-host:latest
 
+# Remove linux-firmware, installed by default
+yum -C -y --noplugins remove linux-firmware
+
+# Clean yum repodata
+yum --noplugins clean all
+
+# Zero out spaces
+dd if=/dev/zero of=/tmp_file bs=1M
+rm -f /tmp_file
+
 chvt 1
 
 %end
