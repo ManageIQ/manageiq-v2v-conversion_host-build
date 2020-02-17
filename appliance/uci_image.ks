@@ -99,6 +99,8 @@ yum -C -y --noplugins remove linux-firmware
 yum --noplugins clean all
 
 # Zero out spaces
+# TODO: Figure out how to make `fstrim` work on build machine so we can drop
+#       this hack.
 dd if=/dev/zero of=/tmp_file bs=1M
 rm -f /tmp_file
 
