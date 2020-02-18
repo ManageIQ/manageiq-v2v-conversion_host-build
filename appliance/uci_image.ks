@@ -98,6 +98,10 @@ yum -C -y --noplugins remove linux-firmware
 # Clean yum repodata
 yum --noplugins clean all
 
+# Create /var/lib/uci and /var/log/uci directories
+mkdir /var/lib/uci
+mkdir /var/log/uci
+
 # Zero out spaces
 # TODO: Figure out how to make `fstrim` work on build machine so we can drop
 #       this hack.
