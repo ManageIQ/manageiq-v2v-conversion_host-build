@@ -32,6 +32,11 @@ RUN dnf -y install \
     dnf -y install --enablerepo=PowerTools python3-openstackclient && \
     dnf -y clean all
 
+# Get Linux packages of qemu guest agent
+COPY grab_qemu_ga.sh /tmp/grab_qemu_ga.sh
+RUN /tmp/grab_qemu_ga.sh && \
+    rm -fv /tmp/grab_qemu_ga.sh
+
 # NOTES:
 # - The container image cannot handle sparse file properly. Keep --size to the
 #   required minimum.
