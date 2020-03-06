@@ -1,6 +1,7 @@
 #!/bin/bash -x
-# Define the locations to search inside for "qemu-guest-agent"
+set -e
 
+# Define the locations to search inside for "qemu-guest-agent"
 declare -A location=(
     ['el6']='http://vault.centos.org/6.9/os/x86_64/Packages/'
     ['el7']='http://vault.centos.org/7.6.1810/os/x86_64/Packages/'
