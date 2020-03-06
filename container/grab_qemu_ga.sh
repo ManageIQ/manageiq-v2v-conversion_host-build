@@ -16,3 +16,28 @@ for version in "${!location[@]}"
         file=$(curl "${location[$version]}" 2>/dev/null| grep -Po '(?<=href=")qemu-guest-agent[^"]*.rpm' | head -1)
         curl ${location[$version]}$file -o $save_dir/$version/$file
     done
+
+#
+# Unpack everything from the virtio-win ISO so that we can remove it.
+#
+
+cd /usr/share/virtio-win
+pwd
+# Remove the driver directory to avoid duplicates
+rm -frv drivers
+# Extract the ISO
+ISO="/usr/share/virtio-win/virtio-win.iso"
+echo "Extracting $ISO"
+# First create directories
+for f in `isoinfo -i "$ISO" -f -J` ; do
+    mkdir -p ./`dirname "$f"`
+done
+# Then extract files
+for f in ` isoinfo -i "$ISO" -f -J`; do
+    if [ ! -d "./$f" ] ; then
+      isoinfo -i "$ISO" -J -x "$f" > "./$f"
+    fi
+done
+# Remove the ISO(s)
+rm -fv *.iso
+ls -lR
