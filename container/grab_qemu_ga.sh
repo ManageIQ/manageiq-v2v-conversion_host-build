@@ -11,11 +11,21 @@ declare -A location=(
     )
 save_dir="/usr/share/virtio-win/linux"
 
+# get_package <location> <name> <target_dir>
+get_package() {
+    location="$1"
+    name="$2"
+    target_dir="$3"
+
+    file=$(curl "$location" 2>/dev/null| grep -Po '(?<=href=")'"$name"'[^"]*.rpm' | tail -1)
+    curl "$location$file" -o "$target_dir/$file"
+}
+
+
 for version in "${!location[@]}"
     do
         mkdir -p $save_dir/$version
-        file=$(curl "${location[$version]}" 2>/dev/null| grep -Po '(?<=href=")qemu-guest-agent[^"]*.rpm' | tail -1)
-        curl ${location[$version]}$file -o $save_dir/$version/$file
+        get_package "${location[$version]}" "qemu-guest-agent" "$save_dir/$version"
     done
 
 #
