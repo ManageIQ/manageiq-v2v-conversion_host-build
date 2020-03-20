@@ -23,6 +23,7 @@ RUN dnf -y install \
         nbdkit \
         nbdkit-python-plugin \
         nbdkit-vddk-plugin \
+        python3-libnbd \
         python3-ovirt-engine-sdk4 \
         qemu-kvm \
         v2v-conversion-host-wrapper \
