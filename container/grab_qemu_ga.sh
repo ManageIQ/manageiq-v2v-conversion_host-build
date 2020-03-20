@@ -17,7 +17,7 @@ get_package() {
     name="$2"
     target_dir="$3"
 
-    file=$(curl "$location" 2>/dev/null| grep -Po '(?<=href=")'"$name"'[^"]*.rpm' | tail -1)
+    file=$(curl "$location" 2>/dev/null| grep -Po '(?<=href=")'"$name"'-[0-9][^"]*.rpm' | tail -1)
     curl "$location$file" -o "$target_dir/$file"
 }
 
