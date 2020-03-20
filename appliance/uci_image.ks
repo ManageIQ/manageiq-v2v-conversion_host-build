@@ -90,7 +90,7 @@ EOF
 echo "" >> /etc/ssh/sshd_config
 
 # Pull the latest UCI Image
-podman pull docker.io/manageiq/v2v-conversion-host:latest
+podman pull docker.io/manageiq/v2v-conversion-host:latest-jansa
 
 # Remove linux-firmware, installed by default
 yum -C -y --noplugins remove linux-firmware

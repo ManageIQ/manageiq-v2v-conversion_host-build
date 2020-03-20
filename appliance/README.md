@@ -12,7 +12,7 @@
 
 
 ```
-ks=https://raw.githubusercontent.com/ManageIQ/manageiq-v2v-conversion_host/master/appliance/uci_image.ks
+ks=https://raw.githubusercontent.com/ManageIQ/manageiq-v2v-conversion_host/jansa/appliance/uci_image.ks
 ```
 
 4. Wait until installation is done and VM reboots
