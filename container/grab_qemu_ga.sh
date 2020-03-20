@@ -18,6 +18,10 @@ get_package() {
     target_dir="$3"
 
     file=$(curl "$location" 2>/dev/null| grep -Po '(?<=href=")'"$name"'-[0-9][^"]*.rpm' | tail -1)
+    if [ -z "$file" ] ; then
+        echo "Cannot find package '$name' in repo '$location'"
+        exit 1
+    fi
     curl "$location$file" -o "$target_dir/$file"
 }
 
