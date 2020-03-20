@@ -30,6 +30,10 @@ for version in "${!location[@]}"
     do
         mkdir -p $save_dir/$version
         get_package "${location[$version]}" "qemu-guest-agent" "$save_dir/$version"
+        # RHBZ#1811670
+        if [ "$version" == "el8" ] ; then
+            get_package "${location[$version]}" "pixman" "$save_dir/$version"
+        fi
     done
 
 #
