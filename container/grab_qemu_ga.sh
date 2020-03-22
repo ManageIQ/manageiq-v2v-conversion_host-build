@@ -34,6 +34,9 @@ for version in "${!location[@]}"
         if [ "$version" == "el8" ] ; then
             get_package "${location[$version]}" "pixman" "$save_dir/$version"
         fi
+        # RHBZ#1811940
+        mkdir -p /linux
+        ln -s $save_dir/$version /linux/$version
     done
 
 #
