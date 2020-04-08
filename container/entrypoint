@@ -19,7 +19,9 @@ ls -ld "$VDDK"
 # location, the path is hard-coded in wrapper.
 lib="$(find "$VDDK" -name libvixDiskLib.so.6)"
 LD_LIBRARY_PATH="$(dirname "$lib")" nbdkit --dump-plugin vddk
-LIBGUESTFS_BACKEND='direct' libguestfs-test-tool
+export LIBGUESTFS_BACKEND='direct'
+export LIBGUESTFS_PATH=/usr/lib64/guestfs.fixed
+libguestfs-test-tool
 set +x -e
 
 echo

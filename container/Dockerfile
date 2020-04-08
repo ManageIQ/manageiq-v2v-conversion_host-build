@@ -53,10 +53,10 @@ RUN /usr/bin/supermin \
         --host-cpu x86_64 \
         /usr/lib64/guestfs/supermin.d \
         -o /usr/lib64/guestfs.fixed/ && \
-    rm -frv /usr/lib64/guestfs/* && \
-    mv -v /usr/lib64/guestfs.fixed/* /usr/lib64/guestfs && \
-    touch /usr/lib64/guestfs/README.fixed && \
-    LIBGUESTFS_BACKEND=direct libguestfs-test-tool
+    touch /usr/lib64/guestfs.fixed/README.fixed && \
+    LIBGUESTFS_PATH=/usr/lib64/guestfs.fixed \
+    LIBGUESTFS_BACKEND=direct \
+    libguestfs-test-tool
 
 RUN install --mode=0775 --group=0 -d /data && \
     install --mode=0775 --group=0 -d /data/input && \
