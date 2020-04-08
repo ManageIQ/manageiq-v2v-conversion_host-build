@@ -49,7 +49,7 @@ RUN /usr/bin/supermin \
         --verbose \
         --copy-kernel \
         --format ext2 \
-        --size 300M \
+        --size 1G \
         --host-cpu x86_64 \
         /usr/lib64/guestfs/supermin.d \
         -o /usr/lib64/guestfs.fixed/ && \
