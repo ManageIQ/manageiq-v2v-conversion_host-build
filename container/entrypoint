@@ -9,6 +9,8 @@ if ! whoami &>/dev/null; then
 fi
 #####
 
+# Run a set of tests and lookups. Basically things that would help us debug
+# miss-configurations and failures during startup.
 set -x +e
 VDDK="/opt/vmware-vix-disklib-distrib/"
 ls -l "/usr/lib64/nbdkit/plugins/nbdkit-vddk-plugin.so"
