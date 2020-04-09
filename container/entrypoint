@@ -9,7 +9,7 @@ if ! whoami &>/dev/null; then
 fi
 #####
 
-set -x
+set -x +e
 VDDK="/opt/vmware-vix-disklib-distrib/"
 ls -l "/usr/lib64/nbdkit/plugins/nbdkit-vddk-plugin.so"
 ls -ld "$VDDK"
@@ -18,7 +18,7 @@ ls -ld "$VDDK"
 lib="$(find "$VDDK" -name libvixDiskLib.so.6)"
 LD_LIBRARY_PATH="$(dirname "$lib")" nbdkit --dump-plugin vddk
 LIBGUESTFS_BACKEND='direct' libguestfs-test-tool
-set +x
+set +x -e
 
 echo
 echo "...  OK  ..."
