@@ -33,7 +33,7 @@ if ls /dev/v2v-disk* 2>/dev/null ; then
       mkdir -p "/data/vm/disk$n"
       major=$(stat -c '%t' "$d")
       minor=$(stat -c '%T' "$d")
-      mknod "/data/vm/disk$n/disk.img" b $major $minor
+      mknod "/data/vm/disk$n/disk.img" b 0x$major 0x$minor
     fi
   done
 fi
