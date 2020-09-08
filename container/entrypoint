@@ -24,20 +24,6 @@ echo
 echo "...  OK  ..."
 echo
 
-if ls /dev/v2v-disk* 2>/dev/null ; then
-  echo "Duplicating block devices in /data/vm..."
-  mkdir -p /data/vm
-  for d in /dev/v2v-disk* ; do
-    n=$(expr "$d" : '/dev/v2v-disk\([0-9]*\)')
-    if [ $? -eq 0 ] ; then
-      mkdir -p "/data/vm/disk$n"
-      major=$(stat -c '%t' "$d")
-      minor=$(stat -c '%T' "$d")
-      mknod "/data/vm/disk$n/disk.img" b 0x$major 0x$minor
-    fi
-  done
-fi
-
 if [ -f "/data/input/conversion.json" ] ; then
   ln -s /data/input/conversion.json /var/lib/uci/input.json
 fi
