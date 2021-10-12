@@ -22,6 +22,7 @@ RUN dnf -y install \
     dnf -y install \
         nbdkit \
         nbdkit-python-plugin \
+        nbdkit-ssh-plugin \
         nbdkit-vddk-plugin \
         python3-libnbd \
         python3-ovirt-engine-sdk4 \
